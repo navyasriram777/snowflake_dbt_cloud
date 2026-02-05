@@ -66,7 +66,6 @@ To unify users across sources:
 - **Fallback for anonymous events:** For web events with missing `user_id`, we use `anonymous_user_id`.  
 - **Result:** Each user has a single, consistent identity across signups, deposits, ticket purchases, and web interactions.  
 - **Benefit:** Enables accurate attribution, ROAS calculations, and reliable KPI reporting.
-
-####### **SAMPLE OUTPUT**
-
-![DIM_CUSTOMER](images/dim_customer.png)
+###### **SAMPLE OUTPUT**
+I have added sample outputfiles of fact and dimension tables under the images folder for reference : ![OUTPUT](images/)
+Eaxample: ![DIM_CUSTOMER](images/dim_customer.png)
