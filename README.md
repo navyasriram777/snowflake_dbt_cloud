@@ -32,7 +32,7 @@ RawData is stored in the snowflake under multiple schemas as follows
 
 ---
 ### Design Choices
-
+- **RawData:** : RawData is available rawdata folder
 - **Staging:** Cleans and standardizes raw sources with minimal transformation. Materialized as **views** to keep storage low and data fresh.  
 
 - **Intermediate:** Calculates first-time events per user (first deposit, first purchase, first marketing interaction, high-jackpot flag). Materialized as **tables** for better performance and reuse in Gold models.  
