@@ -15,7 +15,11 @@ It provides a trusted data model to measure:
 
 RawData is stored in the snowflake under multiple schemas as follows 
 
+###### ** In SNOWFLAKE **
+
 ![RawLayer Data](images/raw_layer.png)
+
+###### ** In DBT **
 
 ![Project_Structure](images/project_structure.jpg)
 
@@ -62,3 +66,7 @@ To unify users across sources:
 - **Fallback for anonymous events:** For web events with missing `user_id`, we use `anonymous_user_id`.  
 - **Result:** Each user has a single, consistent identity across signups, deposits, ticket purchases, and web interactions.  
 - **Benefit:** Enables accurate attribution, ROAS calculations, and reliable KPI reporting.
+
+####### **SAMPLE OUTPUT**
+
+![DIM_CUSTOMER](images/dim_customer.png)
