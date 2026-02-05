@@ -1,0 +1,113 @@
+version: 2
+
+models:
+  - name: stg_app_data_signups
+    description: "Cleaned signups table"
+    columns:
+      - name: user_id
+        description: "Unique user identifier"
+        tests:
+          - not_null
+          - unique
+      - name: signup_id
+        description: "Signup session identifier"
+      - name: signup_ts
+        description: "Timestamp when user signed up"
+      - name: country
+        description: "Country of signup"
+
+  - name: stg_app_data_deposits
+    description: "Cleaned deposits table with USD conversion"
+    columns:
+      - name: deposit_id
+        description: "Unique deposit ID"
+        tests:
+          - not_null
+          - unique
+      - name: user_id
+        description: "ID of the user making the deposit"
+        tests:
+          - not_null
+      - name: deposit_amount_usd
+        description: "Amount deposited in USD"
+      - name: deposit_ts
+        description: "Deposit timestamp"
+
+  - name: stg_lottery_ticket_purchases
+    description: "Staging model for ticket purchases table"
+    columns:
+      - name: purchase_id
+        description: "Unique ticket purchase ID"
+        tests:
+          - not_null
+          - unique
+      - name: user_id
+        description: "ID of the user making the purchase"
+        tests:
+          - not_null
+      - name: game_id
+        description: "ID of the game purchased"
+        tests:
+          - not_null
+      - name: purchase_amount_usd
+        description: "Amount paid for the ticket in USD"
+      - name: purchase_ts
+        description: "Timestamp of the ticket purchase"
+        tests:
+          - not_null
+
+  - name: stg_lottery_games
+    description: "Staging model for lottery games table"
+    columns:
+      - name: game_id
+        description: "Unique identifier for each lottery game"
+        tests:
+          - not_null
+          - unique
+      - name: game_name
+        description: "Name of the lottery game"
+        tests:
+          - not_null
+      - name: jackpot_estimate_usd
+        description: "Estimated jackpot in USD"
+        tests:
+          - not_null
+
+  - name: stg_marketing_funnel_spend
+    description: "Staging model for marketing funnel spend table"
+    columns:
+      - name: spend_date
+        description: "Date of spend"
+        tests:
+          - not_null
+      - name: campaign_name
+        description: "Marketing campaign name"
+        tests:
+          - not_null
+      - name: channel
+        description: "Marketing channel"
+        tests:
+          - not_null
+      - name: spend_usd
+        description: "Marketing spend in USD"
+        tests:
+          - not_null
+
+  - name: stg_tracking_web_events
+    description: "Staging model for web events with resolved user_id"
+    columns:
+      - name: event_id
+        description: "Unique event ID"
+        tests:
+          - not_null
+          - unique
+      - name: user_id_clean
+        description: "Resolved user ID (falls back to anonymous_user_id)"
+        tests:
+          - not_null
+      - name: utm_campaign
+        description: "UTM campaign associated with the event"
+      - name: event_ts
+        description: "Event timestamp"
+        tests:
+          - not_null

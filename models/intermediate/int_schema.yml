@@ -1,0 +1,93 @@
+version: 2
+
+models:
+  - name: int_first_time_deposit
+    description: First deposit event per player.
+    columns:
+      - name: user_id
+        description: Unique identifier of the player.
+        tests:
+          - not_null
+          - unique
+      - name: signup_ts
+        description: Timestamp when the player signed up
+      - name: deposit_ts
+        description: Timestamp of the first deposit
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              arguments:
+                expression: "signup_ts < deposit_ts"  # deposit after signup
+
+  - name: int_first_ticket_purchase
+    description: Intermediate model containing the first ticket purchase for each player.
+    columns:
+      - name: user_id
+        description: Unique identifier for each player.
+        tests:
+          - not_null
+          - unique
+      - name: first_purchase_ts
+        description: Timestamp of the player's first ticket purchase.
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              arguments:
+                expression: "signup_ts < first_purchase_ts AND deposit_ts < first_purchase_ts" # first purchase after signup and deposit
+      - name: purchase_id
+        description: Unique identifier of the purchase transaction.
+      - name: game_id
+        description: Identifier of the game purchased in the first ticket.
+
+  - name: int_first_web_interaction
+    description: Intermediate model containing the first marketing interaction per player.Used to calculate time-toEach ro-first-purchase and ROAS.
+    columns:
+      - name: user_id_clean
+        description: Unique identifier for the player.
+        tests:
+          - not_null
+          - unique
+      - name: event_ts
+        description: Timestamp of the player's first marketing interaction.
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              arguments:
+                expression: "signup_ts < event_ts"  # first interaction after signup
+      - name: event_id
+        description: Event Id associated with the first interaction.
+      - name: utm_campaign
+        description: Campaign ID associated with the first interaction.
+
+  - name: int_participants_of_high_jackpot
+    description: >
+      Intermediate model indicating whether each player has participated
+      in a high-jackpot game. This is used downstream to evaluate which marketing channels
+      acquire players for high-jackpot games.
+    columns:
+      - name: user_id
+        description: Unique identifier for each player.
+        tests:
+          - not_null
+          - unique
+      - name: played_high_jackpot
+        description: >
+          Boolean flag (1/0) indicating if the player has ever purchased
+          a ticket for a high-jackpot game. 1 = played high-jackpot, 0 = never.
+        tests:
+          - not_null
+          - dbt_utils.expression_is_true:
+              arguments:
+                expression: "signup_ts < first_purchase_ts"  # only count high-jackpot purchases after signup
+
+  - name: int_marketing_funnel_spend
+    description: Intermediate model for marketing funnel spend per campaign.
+    columns:
+      - name: spend_date
+        description: Date of the marketing spend.
+      - name: campaign_name
+        description: Marketing campaign name.
+      - name: channel
+        description: Marketing channel.
+      - name: spend_usd
+        description: Marketing spend in USD.

@@ -1,0 +1,44 @@
+version: 2
+
+models:
+  - name: dim_customer
+    description: >
+      Dimension table containing one record per player.
+      It provides a unified view of customer attributes,
+      acquisition details, lifecycle timestamps, and lifetime value
+      to support marketing analytics, VIP segmentation, and ROAS reporting.
+    columns:
+
+      - name: user_id
+        description: "Unique identifier for each player."
+        tests:
+          - not_null
+          - unique
+
+      - name: signup_ts
+        description: "Timestamp when the player created their account."
+        tests:
+          - not_null
+
+      - name: first_touch_ts
+        description: "Earliest recorded marketing touchpoint for the player (e.g., web tracking event)."
+
+      - name: first_purchase_ts
+        description: "Timestamp of the player's first ticket purchase."
+        tests:
+          - dbt_utils.expression_is_true:
+              arguments:
+                expression: "first_purchase_ts >= signup_ts"
+                severity: error
+
+      - name: campaign
+        description: "Marketing channel responsible for acquiring the player (derived from first-touch attribution)."
+
+      - name: ltv
+        description: >
+          Customer Lifetime Value calculated as the total deposited amount in USD.
+          Serves as a proxy for net revenue when payout data is unavailable.
+        tests:
+          - dbt_utils.expression_is_true:
+              arguments:
+                expression: "ltv >= 0"

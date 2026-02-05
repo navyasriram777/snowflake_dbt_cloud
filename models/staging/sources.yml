@@ -1,0 +1,38 @@
+version: 2
+
+sources:
+  - name: raw_app_data
+    schema: raw_app_data
+    description: "Raw data from the application including user activity and financial transactions."
+    
+    tables:
+      - name: signups
+        description: "Records of user registration events, including timestamps and user metadata."
+      - name: deposits
+        description: "User deposit transactions, capturing amount, method, and transaction date."
+
+  - name: raw_lottery
+    schema: raw_lottery
+    description: "Data related to lottery games and user participation."
+    
+    tables:
+      - name: ticket_purchases
+        description: "Records of lottery ticket purchases, including user ID, game ID, and purchase timestamp."
+      - name: games
+        description: "Details about lottery games, such as game type, draw date, and prize information."
+
+  - name: raw_marketing
+    schema: raw_marketing
+    description: "Marketing and advertising spend data for funnel analysis."
+    
+    tables:
+      - name: funnel_spend
+        description: "Marketing funnel spend data showing campaign costs, channel, and date."
+
+  - name: raw_tracking
+    schema: raw_tracking
+    description: "Web and app tracking events capturing user interactions."
+    
+    tables:
+      - name: web_events
+        description: "Detailed user event logs from the website, including event type, timestamp, and associated metadata."
