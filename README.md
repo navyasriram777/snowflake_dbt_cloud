@@ -21,7 +21,7 @@ RawData is stored in the snowflake under multiple schemas as follows
 
 ###### **In DBT**
 
-![Project_Structure](images/dbt_structure.png.jpg)
+![Project_Structure](images/dbt_structure.png)
 
 
 
