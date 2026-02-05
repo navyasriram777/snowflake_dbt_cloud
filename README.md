@@ -9,37 +9,25 @@ It provides a trusted data model to measure:
 3. Marketing channel effectiveness for high-jackpot participants.
 
 ---
-# **-----------------------------------------TASK:1-----------------------------------------------------**
+# **-------------TASK:1-----------------------**
 
 ##### Project Structure
 
-RawData is stored in the snowflake under multiple schemas as follows
+RawData is stored in the snowflake under multiple schemas as follows 
 
+###### **In SNOWFLAKE**
 
-models/
-├── staging/          # Clean raw sources
-│   ├── stg_app_data_signups.sql
-│   ├── stg_app_data_deposits.sql
-│   ├── stg_lottery_ticket_purchases.sql
-│   ├── stg_lottery_games.sql
-│   ├── stg_marketing_funnel_spend.sql
-│   └── stg_tracking_web_events.sql
-├── intermediate/     # Business logic transformations
-│   ├── int_first_time_deposit.sql
-│   ├── int_first_ticket_purchase.sql
-│   ├── int_first_web_interaction.sql
-│   ├── int_participants_of_high_jackpot.sql
-│   └── int_marketing_funnel_spend.sql
-└── marts/            # Gold layer for reporting
-    ├── fct_markecting_to_jackpotgames.sql
-    ├── fct_marketing_roas.sql
-    ├── fct_user_time_to_purchase.sql
-    └── dim_customer.sql
+![RawLayer Data](images/raw_layer.png)
+
+###### **In DBT**
+
+![Project_Structure](images/dbt_structure.png)
+
 
 
 ## DAG / Model Dependencies
 
-![dbt DAG](images/dag.png)
+![dbt DAG](images/dag.jpg)
 
 
 ---
@@ -59,7 +47,7 @@ models/
 
 **Materialization Summary:** Views for freshness and low storage (staging), tables for performance and reuse (intermediate and Gold), balancing speed, cost, and reliability.
 
-# **---------------------------------------TASK:2 : Transformation & Governance------------------------------------------**
+# **-------------TASK:2 : Transformation & Governance-------**
 ### Data Contract via YAML
 
 The `schema.yml` files act as a **data contract** between the data team and consumers by:  
@@ -78,3 +66,7 @@ To unify users across sources:
 - **Fallback for anonymous events:** For web events with missing `user_id`, we use `anonymous_user_id`.  
 - **Result:** Each user has a single, consistent identity across signups, deposits, ticket purchases, and web interactions.  
 - **Benefit:** Enables accurate attribution, ROAS calculations, and reliable KPI reporting.
+###### **SAMPLE OUTPUT**
+- I have added sample outputfiles of fact and dimension tables under the images folder
+- Reference Link : ![OUTPUT](images/)
+- Example: ![DIM_CUSTOMER](images/dim_customer.png)
