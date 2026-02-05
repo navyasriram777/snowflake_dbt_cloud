@@ -15,11 +15,11 @@ It provides a trusted data model to measure:
 
 RawData is stored in the snowflake under multiple schemas as follows 
 
-###### ** In SNOWFLAKE **
+###### **In SNOWFLAKE**
 
 ![RawLayer Data](images/raw_layer.png)
 
-###### ** In DBT **
+###### **In DBT**
 
 ![Project_Structure](images/project_structure.jpg)
 
