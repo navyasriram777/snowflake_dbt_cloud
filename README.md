@@ -13,7 +13,9 @@ It provides a trusted data model to measure:
 
 ##### Project Structure
 
-RawData is stored in the snowflake under multiple schemas as follows
+RawData is stored in the snowflake under multiple schemas as follows 
+
+![RawLayer Data](images/raw_layer.png)
 
 ![Project_Structure](images/project_structure.jpg)
 
