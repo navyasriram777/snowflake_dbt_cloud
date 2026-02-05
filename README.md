@@ -67,5 +67,6 @@ To unify users across sources:
 - **Result:** Each user has a single, consistent identity across signups, deposits, ticket purchases, and web interactions.  
 - **Benefit:** Enables accurate attribution, ROAS calculations, and reliable KPI reporting.
 ###### **SAMPLE OUTPUT**
-I have added sample outputfiles of fact and dimension tables under the images folder for reference : ![OUTPUT](images/)
-Eaxample: ![DIM_CUSTOMER](images/dim_customer.png)
+- I have added sample outputfiles of fact and dimension tables under the images folder
+- Reference Link : ![OUTPUT](images/)
+- Example: ![DIM_CUSTOMER](images/dim_customer.png)
